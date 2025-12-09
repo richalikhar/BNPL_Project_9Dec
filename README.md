@@ -1,2 +1,2 @@
-# BNPL_Project_9Dec
+# BNPL_Customer_Project
 BNPL Customer Insights &amp; Risk Analysis
