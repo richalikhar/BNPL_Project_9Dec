@@ -9,6 +9,7 @@ Python Data Pipeline (ETL Setup)
 Purpose:
 Build a modular data pipeline to manage the entire data flow: from raw generation or ingestion to transformation and cleaning.
 Pipeline Components:
+
 1.	extract_data() – Loads or generates raw data.
 2.	clean_data(df) – Handles nulls, duplicates, and fixes data types.
 3.	transform_data(df) – Creates new features, e.g., total repayment.
@@ -16,6 +17,7 @@ Pipeline Components:
 5.	save_data(df, filename) – Exports the clean file for later use.
 ________________________________________
 SQL Analysis
+
 1.	Total purchases by customer
 2.	Missed payments by the merchant
 3.	Avg income vs. credit score
@@ -23,6 +25,7 @@ SQL Analysis
 5.	Risk classification based on late payments
 ________________________________________
 Power BI Visualization
+
 •	KPIs: Total Users, Active Users, Default Rate
 •	Bar Chart: Product Categories by Revenue
 •	Heatmap: Risk by Region
