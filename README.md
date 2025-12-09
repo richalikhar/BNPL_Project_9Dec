@@ -26,8 +26,8 @@ SQL Analysis
 ________________________________________
 Power BI Visualization
 
-•	KPIs: Total Users, Active Users, Default Rate
-•	Bar Chart: Product Categories by Revenue
-•	Heatmap: Risk by Region
-•	Line Chart: Monthly Sales Volume
-•	Pie Chart: Gender Distribution
+1. KPIs: Total Users, Active Users, Default Rate 
+2. Bar Chart: Product Categories by Revenue
+3. Heatmap: Risk by Region
+4. Line Chart: Monthly Sales Volume
+5. Pie Chart: Gender Distribution
