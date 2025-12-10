@@ -2,8 +2,6 @@
 # coding: utf-8
 
 # In[17]:
-
-
 import numpy as np
 import pandas as pd
 from pathlib import Path
@@ -13,22 +11,10 @@ def extract_data(path="bnpl_dataset_20000.csv"):
 
 df = extract_data("bnpl_dataset_20000.csv")
 
-
 # In[18]:
-
-
 df.info();
 
-
-# In[ ]:
-
-
-
-
-
 # In[26]:
-
-
 def clean_data(df):
     df = df.copy()
     # drop exact duplicates
@@ -54,18 +40,8 @@ def clean_data(df):
         if c in df.columns:
              df.loc[df[c] < 0,c] = np.nan
         return df
-        
-
-
-# In[ ]:
-
-
-
-
-
+       
 # In[33]:
-
-
 def transform_data(df):
     df = df.copy()
     # Total financed amount = purchase_amount - down_payment
@@ -78,17 +54,7 @@ def transform_data(df):
     df['monthly_installment_est'] = df['financed_amount'] / df['installments']
     return df
 
-
-
-# In[ ]:
-
-
-df
-
-
 # In[28]:
-
-
 def validate_data(df):
     problems = []
     if df['credit_score'].between(300,850).all() == 'false':
@@ -98,27 +64,13 @@ def validate_data(df):
         problems.append("negative amount found")
     return problems
 
-
-
-
-
-
-
-
-
 # In[29]:
-
-
 def save_data(df, filename="cleaned_bnpl_data_new.csv"):
     Path(filename).parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(filename, index=False)
     return filename
 
-
-
 # In[34]:
-
-
 if __name__ == "__main__":
     df = extract_data("bnpl_dataset_20000.csv")
     dfc = clean_data(df)
@@ -128,11 +80,6 @@ if __name__ == "__main__":
     save_data(dft, "cleaned_bnpl_data.csv")
     print("Saved cleaned_bnpl_data.csv")
     
- 
-
-
-# In[ ]:
-
 
 
 
