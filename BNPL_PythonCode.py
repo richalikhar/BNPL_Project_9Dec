@@ -17,9 +17,6 @@ def extract_data(path="bnpl_dataset_20000.csv"):
 # In[8]:
 
 
-df.info();
-
-
 # In[ ]:
 
 
@@ -71,29 +68,34 @@ def clean_data(df):
 
 # In[34]:
 
-
 def transform_data(df):
-    df = df.copy()
-    
-    
-    
     
     # Total financed amount = purchase_amount - down_payment
     df['financed_amount'] = df['purchase_amount'] - df['down_payment']
     # total_repaid_amount = down_payment + (installment_amount * installments_paid)
     df['total_repaid_amount'] = (df['down_payment']  + (df['installment_amount']  * df['installments'])).fillna(0)
     # Flag high risk: low repayment rate or many missed payments
-    df['high_risk'] = ((df['total_repaid_amount'] < 0.8) | (df['missed_payments'] >= 2) | (df['credit_score'] < 550)).astype(int)
-   # Monthly installment estimate
+    #df['high_risk'] = ((df['total_repaid_amount'] < 0.8) | (df['missed_payments'] >= 2) | (df['credit_score'] < 550)).astype(int)
+    # Monthly installment estimate
     df['monthly_installment_est'] = df['financed_amount'] / df['installments']
+    
+    # Fix: Calculate total EXPECTED cost
+    df['total_loan_value'] = df['down_payment'] + (df['installment_amount'] * df['installments'])
+
+    # Fix: Create a mock 'amount_paid' based on payment_status for the sake of the project
+    # If status is 'Paid', they paid 100%. If 'Missed', assume they paid 50% (just for simulation)
+    df['repayment_rate'] = np.where(df['payment_status'] == 'Paid', 1.0, 0.5)
+
+    # Fix: Logic for high risk using the new rate
+    # Risk is: Low repayment rate OR Multiple missed payments OR Low Credit Score
+    df['high_risk'] = (
+        (df['repayment_rate'] < 0.8) |
+        (df['missed_payments'] >= 2) |
+        (df['credit_score'] < 550)
+    ).astype(int)
+
     return df
 
-
-
-# In[ ]:
-
-
-df
 
 
 # In[35]:
@@ -101,7 +103,7 @@ df
 
 def validate_data(df):
     problems = []
-    if df['credit_score'].between(300,850).all() == 'false':
+    if not df['credit_score'].between(300,850).all()  :
         problems.append("some credit scores outside 300-850")
     #nonegativeamounts
     if(df['purchase_amount'] < 0).any():
@@ -145,10 +147,7 @@ if __name__ == "__main__":
 # In[26]:
 
 
-df.info()
 
-
-# In[ ]:
 
 
 
