@@ -12,8 +12,8 @@ GROUP BY merchant
 ORDER BY total_missed_payments DESC;
 
 #) 3. Avg income vs credit score 
-SELECT 
-  AVG(income) AS avg_income, 
+SELECT   
+  AVG(purchase_amount / income) AS avg_income, 
   AVG(credit_score) AS avg_credit_score
  FROM cleaned_bnpl_data;
 
